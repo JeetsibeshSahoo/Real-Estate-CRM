@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Building2, Mail, Phone, MapPin } from 'lucide-react';
@@ -10,7 +9,6 @@ const Footer = () => {
     <footer className="bg-slate-950 text-slate-300 pt-16 pb-12 border-t border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
-          
           {/* Brand Column */}
           <div className="space-y-4 md:col-span-1">
             <div className="flex items-center gap-2">
@@ -124,7 +122,6 @@ const Footer = () => {
 
         </div>
 
-        {/* Bottom Centered Copyright */}
         <div className="pt-8 border-t border-slate-800 text-center text-xs text-slate-500">
           <p>© {new Date().getFullYear()} AnuEstate. All rights reserved.</p>
         </div>

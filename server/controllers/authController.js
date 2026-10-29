@@ -4,7 +4,7 @@ import User from '../models/User.js';
 
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: '7d' // Token valid for 7 days
+    expiresIn: '7d' 
   });
 };
 
@@ -12,7 +12,6 @@ const generateToken = (id) => {
 export const registerUser = async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
-
     // 1. Validation
     if (!name || !email || !password) {
       return res.status(400).json({
@@ -119,7 +118,6 @@ export const loginUser = async (req, res) => {
 
 export const getMe = async (req, res) => {
   try {
-    // req.user was populated by 'protect' middleware
     res.status(200).json({
       success: true,
       user: req.user

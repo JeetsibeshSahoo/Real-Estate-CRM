@@ -16,18 +16,13 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-
   const { isAuthenticated, loading, error } = useSelector((state) => state.auth);
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const from = location.state?.from?.pathname || '/crm/dashboard';
 
-  // Redirect if already authenticated
   useEffect(() => {
     if (isAuthenticated) {
-      // If user came from a specific page, return them there; otherwise default to dashboard
       const returnTo = location.state?.from?.pathname || '/crm/dashboard';
       navigate(returnTo, { replace: true });
     }
@@ -36,14 +31,14 @@ const Login = () => {
     };
   }, [isAuthenticated, navigate, location, dispatch]);
 
-  // Form submit handler
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!email || !password) return;
     dispatch(loginUser({ email, password }));
   };
 
-  // One-click demo credentials autofill for Anuverse Technologies evaluator
+
   const fillDemoAdmin = () => {
     setEmail('admin@realestate.com');
     setPassword('adminpassword123');
@@ -68,8 +63,6 @@ const Login = () => {
 
         {/* Card Container */}
         <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/50 space-y-6">
-          
-          {/* Quick Demo Helper Box */}
           <div className="p-4 bg-blue-50/70 border border-blue-100 rounded-2xl flex items-center justify-between gap-3">
             <div className="space-y-0.5">
               <span className="flex items-center gap-1.5 text-xs font-bold text-blue-900">
@@ -88,8 +81,6 @@ const Login = () => {
               Fill Admin
             </button>
           </div>
-
-          {/* Error Message Alert */}
           {error && (
             <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-xs flex items-center gap-2">
               <ShieldAlert className="w-4 h-4 shrink-0" />
@@ -99,8 +90,6 @@ const Login = () => {
 
           {/* Login Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
-            
-            {/* Email Field */}
             <div>
               <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                 Work Email
@@ -117,8 +106,6 @@ const Login = () => {
                 />
               </div>
             </div>
-
-            {/* Password Field */}
             <div>
               <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                 Password
@@ -135,8 +122,6 @@ const Login = () => {
                 />
               </div>
             </div>
-
-            {/* Submit Button */}
             <button
               type="submit"
               disabled={loading}
@@ -151,10 +136,7 @@ const Login = () => {
                 </>
               )}
             </button>
-
           </form>
-
-          {/* Security Note */}
           <div className="pt-4 border-t border-slate-100 flex items-center justify-center gap-1.5 text-[11px] text-slate-400">
             <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
             <span>Role-Based Access Control (JWT Encrypted)</span>
@@ -162,7 +144,6 @@ const Login = () => {
 
         </div>
 
-        {/* Back Link */}
         <div className="text-center">
           <Link
             to="/"

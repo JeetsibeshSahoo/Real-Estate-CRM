@@ -26,8 +26,6 @@ const Home = () => {
   const navigate = useNavigate();
   const [featuredProperties, setFeaturedProperties] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  // Search form states
   const [keyword, setKeyword] = useState('');
   const [selectedType, setSelectedType] = useState('All');
 
@@ -49,7 +47,6 @@ const Home = () => {
     fetchFeatured();
   }, []);
 
-  // Handle Search Submission
   const handleSearch = (e) => {
     e.preventDefault();
     const params = new URLSearchParams();
@@ -61,11 +58,9 @@ const Home = () => {
 
   return (
     <div className="space-y-20 pb-20">
-      
       {/* 1. HERO SECTION */}
       <section className="relative bg-gradient-to-b from-blue-50/70 via-white to-slate-50 pt-16 pb-24 overflow-hidden border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-100/70 text-blue-700 text-xs font-semibold mb-6">
             <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
             Integrated Real Estate Portal & CRM System
@@ -79,11 +74,8 @@ const Home = () => {
             Explore verified luxury villas, modern city apartments, and commercial workspaces. Every inquiry connects seamlessly to our business lead management pipeline.
           </p>
 
-          {/* Quick Search Box */}
           <div className="max-w-3xl mx-auto bg-white p-3 rounded-2xl shadow-xl shadow-slate-200/60 border border-slate-200">
             <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-3 items-center">
-              
-              {/* Keyword / Location Input */}
               <div className="relative flex-grow w-full">
                 <Search className="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                 <input
@@ -94,8 +86,6 @@ const Home = () => {
                   className="w-full pl-11 pr-4 py-3 bg-slate-50 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:bg-white border border-transparent focus:border-blue-500 transition-all"
                 />
               </div>
-
-              {/* Property Type Dropdown */}
               <div className="w-full sm:w-48">
                 <select
                   value={selectedType}
@@ -110,8 +100,6 @@ const Home = () => {
                   <option value="Plot">Plot</option>
                 </select>
               </div>
-
-              {/* Search Submit Button */}
               <button
                 type="submit"
                 className="w-full sm:w-auto px-7 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-md shadow-blue-500/30 transition-all flex items-center justify-center gap-2 cursor-pointer"
@@ -249,7 +237,6 @@ const Home = () => {
           </Link>
         </div>
       </section>
-
     </div>
   );
 };

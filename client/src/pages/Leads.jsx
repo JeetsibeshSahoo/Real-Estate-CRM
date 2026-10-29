@@ -23,12 +23,8 @@ const STATUS_COLORS = {
 const Leads = () => {
   const [leads, setLeads] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  // Filters
   const [selectedStatus, setSelectedStatus] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
-
-  // Selected Lead for Modal View/Edit
   const [activeLead, setActiveLead] = useState(null);
   const [newStatus, setNewStatus] = useState('');
   const [statusNote, setStatusNote] = useState('');
@@ -63,7 +59,6 @@ const Leads = () => {
     fetchLeads();
   };
 
-  // Open Lead Action Modal
   const openLeadModal = (lead) => {
     setActiveLead(lead);
     setNewStatus(lead.status);
@@ -71,12 +66,10 @@ const Leads = () => {
     setNewNoteText('');
   };
 
-  // Close Modal
   const closeModal = () => {
     setActiveLead(null);
   };
 
-  // Update Status Handler (PATCH /api/leads/:id/status)
   const handleStatusUpdate = async () => {
     if (!activeLead) return;
     setUpdating(true);
@@ -87,9 +80,7 @@ const Leads = () => {
       });
 
       if (res.data.success) {
-        // Update active modal lead
         setActiveLead(res.data.data);
-        // Refresh table list
         fetchLeads();
         setStatusNote('');
       }
@@ -100,7 +91,6 @@ const Leads = () => {
     }
   };
 
-  // Add Follow-up Note Handler (POST /api/leads/:id/notes)
   const handleAddNote = async (e) => {
     e.preventDefault();
     if (!newNoteText.trim() || !activeLead) return;
@@ -126,7 +116,6 @@ const Leads = () => {
     }
   };
 
-  // Delete Lead Handler
   const handleDeleteLead = async (leadId) => {
     if (!window.confirm('Are you sure you want to delete this lead?')) return;
     try {
@@ -142,7 +131,6 @@ const Leads = () => {
 
   return (
     <div className="space-y-8">
-      
       {/* Header Banner */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
@@ -163,8 +151,6 @@ const Leads = () => {
 
       {/* Filter and Search Bar */}
       <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
-        
-        {/* Status Filter Tabs */}
         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
           {STATUS_OPTIONS.map((status) => (
             <button
@@ -180,8 +166,6 @@ const Leads = () => {
             </button>
           ))}
         </div>
-
-        {/* Search Input */}
         <form onSubmit={handleSearchSubmit} className="relative min-w-[280px]">
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
@@ -194,8 +178,6 @@ const Leads = () => {
         </form>
 
       </div>
-
-      {/* Leads Table / Mobile Cards */}
       <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
         {loading ? (
           <div className="p-6 space-y-4 animate-pulse">
@@ -316,7 +298,6 @@ const Leads = () => {
       {activeLead && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
           <div className="bg-white w-full max-w-2xl rounded-3xl shadow-2xl border border-slate-200 overflow-hidden my-8 animate-in fade-in duration-200">
-            
             {/* Modal Header */}
             <div className="p-6 bg-slate-900 text-white flex items-center justify-between">
               <div>
@@ -333,11 +314,8 @@ const Leads = () => {
                 <X className="w-5 h-5" />
               </button>
             </div>
-
             {/* Modal Body */}
             <div className="p-6 space-y-6 max-h-[75vh] overflow-y-auto">
-              
-              {/* Interested Property Card */}
               <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200">
                 <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-1">
                   Interested Property
@@ -429,8 +407,6 @@ const Leads = () => {
                     {activeLead.notes?.length || 0} entries
                   </span>
                 </div>
-
-                {/* Add New Note Box */}
                 <form onSubmit={handleAddNote} className="flex gap-2">
                   <input
                     type="text"
@@ -448,8 +424,6 @@ const Leads = () => {
                     Add Note
                   </button>
                 </form>
-
-                {/* Notes History List */}
                 <div className="space-y-2.5 max-h-48 overflow-y-auto">
                   {activeLead.notes && activeLead.notes.length > 0 ? (
                     activeLead.notes.slice().reverse().map((note, index) => (

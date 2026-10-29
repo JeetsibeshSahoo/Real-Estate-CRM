@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 
-// Subschema for tracking follow-up interactions and agent notes
 const noteSchema = new mongoose.Schema(
   {
     text: {
@@ -41,19 +40,16 @@ const leadSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Inquiry message is required']
     },
-    // Reference to the specific Property the visitor is inquiring about
     property: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Property',
       required: [true, 'Associated property ID is required']
     },
-    // Status pipeline required by Anuverse Technologies assignment
     status: {
       type: String,
       enum: ['New', 'Contacted', 'Interested', 'Converted', 'Lost'],
       default: 'New'
     },
-    // Notes and follow-up timeline
     notes: [noteSchema],
     assignedTo: {
       type: mongoose.Schema.Types.ObjectId,

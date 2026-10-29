@@ -4,7 +4,6 @@ import { protect, authorize } from '../middleware/auth.js';
 
 const router = express.Router();
 
-// Protected: CRM dashboard analytics
 router.get('/stats', protect, authorize('admin', 'agent'), getDashboardStats);
 
 export default router;

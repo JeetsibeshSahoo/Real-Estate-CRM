@@ -1,14 +1,11 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import bcrypt from 'bcryptjs';
 import User from '../models/User.js';
 import Property from '../models/Property.js';
 import Lead from '../models/Lead.js';
 
-// Load environment variables from server/.env
 dotenv.config();
 
-// Connect to MongoDB
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URI);
@@ -19,7 +16,6 @@ const connectDB = async () => {
   }
 };
 
-// 1. Initial Admin User Data
 const adminData = {
   name: 'Anuverse Admin',
   email: 'admin@realestate.com',
@@ -27,7 +23,6 @@ const adminData = {
   role: 'admin'
 };
 
-// 2. Realistic Property Listings with Unsplash Real Estate Images
 const sampleProperties = [
   {
     title: 'Modern Sunset Luxury Villa',
@@ -210,28 +205,26 @@ const seedDatabase = async () => {
   try {
     await connectDB();
 
-    // 1. Clear existing collections to prevent duplicates
+    
     await User.deleteMany();
     await Property.deleteMany();
     await Lead.deleteMany();
     console.log('🧹 Purged existing Users, Properties, and Leads...');
 
-    // 2. Create the Admin User
     const adminUser = await User.create(adminData);
     console.log(`👤 Admin created: ${adminUser.email} (Password: adminpassword123)`);
 
-    // 3. Create Properties
     const createdProperties = await Property.insertMany(sampleProperties);
     console.log(`🏠 Successfully inserted ${createdProperties.length} Properties!`);
 
-    // 4. Create Sample Leads linked to created properties
+
     const sampleLeads = [
       {
         name: 'Sarah Jenkins',
         email: 'sarah.j@gmail.com',
         phone: '+1 (555) 234-5678',
         message: 'I am interested in scheduling a private tour of the Sunset Luxury Villa this Saturday.',
-        property: createdProperties[0]._id, // Sunset Villa
+        property: createdProperties[0]._id, 
         status: 'Interested',
         notes: [
           { text: 'Inquiry submitted online', addedBy: 'System' },
@@ -243,7 +236,7 @@ const seedDatabase = async () => {
         email: 'm.chang@techventures.io',
         phone: '+1 (555) 876-5432',
         message: 'Looking for office space for a 40-person fintech team. Is the Wall Street lease flexible?',
-        property: createdProperties[3]._id, // Financial District Office
+        property: createdProperties[3]._id, 
         status: 'Contacted',
         notes: [
           { text: 'Inquiry submitted online', addedBy: 'System' },
@@ -255,7 +248,7 @@ const seedDatabase = async () => {
         email: 'elena.rostova@yahoo.com',
         phone: '+1 (555) 345-9876',
         message: 'Love the double-height skyline view! Is financing available or cash only?',
-        property: createdProperties[1]._id, // Miami Penthouse
+        property: createdProperties[1]._id, 
         status: 'Converted',
         notes: [
           { text: 'Inquiry submitted online', addedBy: 'System' },
@@ -267,7 +260,7 @@ const seedDatabase = async () => {
         email: 'david.m92@outlook.com',
         phone: '+1 (555) 432-1098',
         message: 'Looking to purchase my first home. Would like more info on HOA fees for the Waterfront apartment.',
-        property: createdProperties[2]._id, // Waterfront Apartment
+        property: createdProperties[2]._id, 
         status: 'New',
         notes: [
           { text: 'Initial enquiry submitted through website', addedBy: 'System' }
@@ -278,7 +271,7 @@ const seedDatabase = async () => {
         email: 'jtaylor@designstudio.com',
         phone: '+1 (555) 654-7890',
         message: 'Can the studio loft be used as a live/work creative studio?',
-        property: createdProperties[4]._id, // Urban Studio Loft
+        property: createdProperties[4]._id, 
         status: 'Lost',
         notes: [
           { text: 'Inquiry submitted online', addedBy: 'System' },
@@ -289,13 +282,7 @@ const seedDatabase = async () => {
 
     await Lead.insertMany(sampleLeads);
     console.log(`📋 Successfully inserted ${sampleLeads.length} Sample Leads across pipeline stages!`);
-
     console.log('\n🎉 DATABASE SEEDING COMPLETED SUCCESSFULLY! 🎉');
-    console.log('───────────────────────────────────────────────────────');
-    console.log('🔑 Admin Credentials:');
-    console.log('   Email:    admin@realestate.com');
-    console.log('   Password: adminpassword123');
-    console.log('───────────────────────────────────────────────────────\n');
 
     process.exit(0);
   } catch (error) {

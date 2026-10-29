@@ -16,7 +16,6 @@
   }
 }
 
-/* Custom scrollbars for clean table layouts */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;

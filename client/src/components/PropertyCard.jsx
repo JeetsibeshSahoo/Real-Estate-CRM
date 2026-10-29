@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { MapPin, Bed, Bath, Maximize, ArrowUpRight } from 'lucide-react';
 
 const PropertyCard = ({ property }) => {
-  // Format price cleanly (e.g. $1,250,000)
+
   const formattedPrice = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
@@ -25,19 +25,16 @@ const PropertyCard = ({ property }) => {
           loading="lazy"
         />
 
-        {/* Type Badge */}
         <span className="absolute top-3.5 left-3.5 px-3 py-1 bg-slate-900/85 backdrop-blur-md text-white text-[11px] font-semibold tracking-wide uppercase rounded-full shadow-sm">
           {property.propertyType}
         </span>
 
-        {/* Featured Tag */}
         {property.featured && (
           <span className="absolute top-3.5 right-3.5 px-3 py-1 bg-amber-500 text-white text-[11px] font-bold tracking-wide uppercase rounded-full shadow-sm">
             Featured
           </span>
         )}
 
-        {/* Price Overlay Banner */}
         <div className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-xl shadow-md border border-white/60">
           <p className="text-lg font-black text-blue-600 tracking-tight">
             {formattedPrice}
@@ -48,7 +45,6 @@ const PropertyCard = ({ property }) => {
       {/* Property Content Details */}
       <div className="p-5 flex flex-col flex-grow justify-between">
         <div>
-          {/* Location */}
           <div className="flex items-center gap-1.5 text-slate-500 text-xs font-medium mb-2.5">
             <MapPin className="w-3.5 h-3.5 text-blue-500 shrink-0" />
             <span className="truncate">
@@ -56,12 +52,10 @@ const PropertyCard = ({ property }) => {
             </span>
           </div>
 
-          {/* Title */}
           <h3 className="text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-1 mb-2">
             {property.title}
           </h3>
 
-          {/* Short description */}
           <p className="text-slate-500 text-xs font-normal line-clamp-2 mb-4 leading-relaxed">
             {property.description}
           </p>
@@ -84,7 +78,6 @@ const PropertyCard = ({ property }) => {
             </div>
           </div>
 
-          {/* View Details Link */}
           <Link
             to={`/properties/${property._id}`}
             className="flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-slate-50 hover:bg-blue-600 text-slate-700 hover:text-white rounded-xl text-xs font-bold tracking-wide transition-all group-hover:border-transparent border border-slate-200"

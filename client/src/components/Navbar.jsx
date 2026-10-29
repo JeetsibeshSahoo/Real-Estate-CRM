@@ -17,7 +17,6 @@ const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // Read state from Redux store
   const { isAuthenticated, user } = useSelector((state) => state.auth);
 
   const handleLogout = () => {
@@ -31,7 +30,6 @@ const Navbar = () => {
     <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
             <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
@@ -70,7 +68,6 @@ const Navbar = () => {
               Properties
             </Link>
           </nav>
-
           {/* Right Action / Auth Buttons */}
           <div className="hidden md:flex items-center gap-3">
             {isAuthenticated ? (

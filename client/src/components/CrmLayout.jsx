@@ -39,7 +39,6 @@ const CrmLayout = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col md:flex-row">
-
       <div className="md:hidden bg-slate-900 text-white px-4 py-3 flex items-center justify-between border-b border-slate-800 sticky top-0 z-40">
         <div className="flex items-center gap-2">
           <span className="font-extrabold text-sm tracking-tight">
@@ -109,8 +108,6 @@ const CrmLayout = () => {
 
       <aside className="hidden md:flex w-64 bg-slate-900 text-slate-300 p-6 flex-col justify-between shrink-0 border-r border-slate-800 sticky top-0 h-screen">
         <div className="space-y-8">
-          
-          {/* Identity Badge */}
           <div className="space-y-1">
             <div className="flex items-center gap-2">
               <span className="text-lg font-black text-white tracking-tight">

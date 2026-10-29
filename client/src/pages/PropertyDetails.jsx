@@ -19,14 +19,10 @@ import {
 
 const PropertyDetails = () => {
   const { id } = useParams();
-
-  // Property Data State
   const [property, setProperty] = useState(null);
   const [selectedImage, setSelectedImage] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  // Enquiry Form State
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -45,7 +41,6 @@ const PropertyDetails = () => {
         const res = await api.get(`/properties/${id}`);
         if (res.data.success) {
           setProperty(res.data.data);
-          // Pre-populate enquiry message with property title
           setFormData((prev) => ({
             ...prev,
             message: `Hi, I am interested in "${res.data.data.title}". Please share further details and tour availability.`
@@ -63,13 +58,13 @@ const PropertyDetails = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [id]);
 
-  // Handle Enquiry Input Changes
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Submit Enquiry Form to /api/leads
+
   const handleEnquirySubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
@@ -87,7 +82,6 @@ const PropertyDetails = () => {
       const res = await api.post('/leads', payload);
       if (res.data.success) {
         setSubmitSuccess(true);
-        // Clear inputs after success
         setFormData({
           name: '',
           email: '',
@@ -149,7 +143,6 @@ const PropertyDetails = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      
       {/* Breadcrumb Navigation */}
       <div className="flex items-center gap-2 text-xs font-semibold text-slate-500 mb-6">
         <Link to="/properties" className="hover:text-blue-600 flex items-center gap-1">
@@ -200,7 +193,6 @@ const PropertyDetails = () => {
 
       {/* Main Image Gallery */}
       <div className="space-y-4 mb-12">
-        {/* Large Active Image */}
         <div className="relative aspect-[16/9] md:aspect-[21/9] rounded-3xl overflow-hidden bg-slate-900 shadow-lg border border-slate-200">
           <img
             src={property.images[selectedImage] || property.images[0]}
@@ -208,8 +200,7 @@ const PropertyDetails = () => {
             className="w-full h-full object-cover"
           />
         </div>
-
-        {/* Thumbnail Selector */}
+        
         {property.images && property.images.length > 1 && (
           <div className="flex items-center gap-3 overflow-x-auto pb-2">
             {property.images.map((img, idx) => (
@@ -231,11 +222,8 @@ const PropertyDetails = () => {
 
       {/* Two-Column Layout: Details Specs (Left) & Enquiry Form (Right) */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-        
         {/* LEFT COLUMN: Property Overview, Specs & Features */}
         <div className="lg:col-span-2 space-y-10">
-          
-          {/* Key Metric Highlights */}
           <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm grid grid-cols-2 sm:grid-cols-4 gap-4">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
@@ -286,7 +274,6 @@ const PropertyDetails = () => {
             </div>
           </div>
 
-          {/* Description Section */}
           <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm space-y-4">
             <h3 className="text-xl font-bold text-slate-900">
               About This Property
@@ -296,7 +283,6 @@ const PropertyDetails = () => {
             </p>
           </div>
 
-          {/* Amenities & Features */}
           {property.features && property.features.length > 0 && (
             <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm space-y-4">
               <h3 className="text-xl font-bold text-slate-900">
@@ -312,13 +298,11 @@ const PropertyDetails = () => {
               </div>
             </div>
           )}
-
         </div>
 
         {/* RIGHT COLUMN: Interactive Lead Enquiry Form */}
         <div className="lg:col-span-1">
           <div className="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-lg sticky top-24">
-            
             <div className="mb-6">
               <span className="text-xs font-bold uppercase tracking-wider text-blue-600">
                 Direct Inquiry
@@ -359,7 +343,6 @@ const PropertyDetails = () => {
                   </div>
                 )}
 
-                {/* Name */}
                 <div>
                   <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                     Your Name *
@@ -378,7 +361,6 @@ const PropertyDetails = () => {
                   </div>
                 </div>
 
-                {/* Email */}
                 <div>
                   <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                     Email Address *
@@ -397,7 +379,6 @@ const PropertyDetails = () => {
                   </div>
                 </div>
 
-                {/* Phone */}
                 <div>
                   <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                     Phone Number *
@@ -416,7 +397,6 @@ const PropertyDetails = () => {
                   </div>
                 </div>
 
-                {/* Message */}
                 <div>
                   <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                     Message / Tour Request *
@@ -433,7 +413,6 @@ const PropertyDetails = () => {
                   </div>
                 </div>
 
-                {/* Submit Button */}
                 <button
                   type="submit"
                   disabled={submitting}
@@ -458,9 +437,7 @@ const PropertyDetails = () => {
 
           </div>
         </div>
-
       </div>
-
     </div>
   );
 };

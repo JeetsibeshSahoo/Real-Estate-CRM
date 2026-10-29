@@ -1,6 +1,5 @@
 import Property from '../models/Property.js';
 
-
 export const getProperties = async (req, res) => {
   try {
     const {
@@ -16,10 +15,8 @@ export const getProperties = async (req, res) => {
       limit = 12
     } = req.query;
 
-    // Build dynamic query object
     const query = {};
 
-    // 1. Text Search across title, description, or city keyword
     if (keyword) {
       query.$or = [
         { title: { $regex: keyword, $options: 'i' } },
@@ -29,39 +26,33 @@ export const getProperties = async (req, res) => {
       ];
     }
 
-    // 2. City filter
     if (city && city !== 'All') {
       query['location.city'] = { $regex: new RegExp(`^${city}$`, 'i') };
     }
 
-    // 3. Property type filter (Apartment, Villa, Commercial, Studio, Plot)
     if (propertyType && propertyType !== 'All') {
       query.propertyType = propertyType;
     }
 
-    // 4. Budget / Price range filter ($gte = greater than or equal, $lte = less than or equal)
     if (minPrice || maxPrice) {
       query.price = {};
       if (minPrice) query.price.$gte = Number(minPrice);
       if (maxPrice) query.price.$lte = Number(maxPrice);
     }
 
-    // 5. Bedrooms filter
     if (bedrooms && bedrooms !== 'All') {
       query.bedrooms = Number(bedrooms);
     }
 
-    // 6. Featured properties flag (for homepage carousel/grid)
     if (featured !== undefined) {
       query.featured = featured === 'true';
     }
 
-    // Sorting logic (e.g. price low to high, high to low, or newest)
-    let sortBy = { createdAt: -1 }; // Default: newest first
+    let sortBy = { createdAt: -1 }; 
     if (sort === 'price_asc') sortBy = { price: 1 };
     if (sort === 'price_desc') sortBy = { price: -1 };
 
-    // Pagination calculations
+
     const pageNum = Number(page);
     const limitNum = Number(limit);
     const skip = (pageNum - 1) * limitNum;
@@ -147,8 +138,8 @@ export const updateProperty = async (req, res) => {
     }
 
     property = await Property.findByIdAndUpdate(req.params.id, req.body, {
-      new: true, // Returns the newly updated document
-      runValidators: true // Enforces Mongoose schema validations on updates
+      new: true, 
+      runValidators: true 
     });
 
     res.status(200).json({

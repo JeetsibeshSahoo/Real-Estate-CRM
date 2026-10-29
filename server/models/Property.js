@@ -80,7 +80,6 @@ const propertySchema = new mongoose.Schema(
   }
 );
 
-// Text Index for full-text search across title, description, and city
 propertySchema.index({
   title: 'text',
   description: 'text',

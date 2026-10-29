@@ -25,7 +25,7 @@ import {
   Cell
 } from 'recharts';
 
-// Pipeline status color mapping
+
 const STATUS_COLORS = {
   New: '#3b82f6',         
   Contacted: '#f59e0b',   
@@ -79,7 +79,6 @@ const Dashboard = () => {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Fetch dashboard stats from /api/dashboard/stats
   useEffect(() => {
     const fetchStats = async () => {
       try {
@@ -116,13 +115,10 @@ const Dashboard = () => {
 
   const { kpi, charts, recentLeads } = stats || {};
 
-  // Total properties calculation for the center of the donut
   const totalInventoryCount = charts?.propertiesByType?.reduce((sum, item) => sum + item.count, 0) || 0;
 
   return (
     <div className="space-y-10">
-      
-      {/* Top Welcome Title */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold mb-2 border border-blue-100">
@@ -146,7 +142,6 @@ const Dashboard = () => {
         </Link>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        
         {/* KPI 1: Total Properties */}
         <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
           <div>

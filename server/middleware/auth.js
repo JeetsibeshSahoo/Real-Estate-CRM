@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 
-
 export const protect = async (req, res, next) => {
   let token;
 
@@ -11,13 +10,8 @@ export const protect = async (req, res, next) => {
     req.headers.authorization.startsWith('Bearer')
   ) {
     try {
-      // Extract token from header string: "Bearer <token>"
       token = req.headers.authorization.split(' ')[1];
-
-      // Verify the token using our secret key
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-      // Find user by ID contained in payload, excluding the password field
       req.user = await User.findById(decoded.id).select('-password');
 
       if (!req.user) {
@@ -27,7 +21,7 @@ export const protect = async (req, res, next) => {
         });
       }
 
-      next(); // Pass control to the next handler
+      next(); 
     } catch (error) {
       console.error('JWT Verification Error:', error.message);
       return res.status(401).json({

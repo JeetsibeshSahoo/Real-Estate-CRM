@@ -14,13 +14,10 @@ const CrmProperties = () => {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
-
-  // Modal State for Creating Property
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState(null);
 
-  // New Property Form State
   const initialFormState = {
     title: '',
     description: '',
@@ -45,7 +42,7 @@ const CrmProperties = () => {
     try {
       const params = new URLSearchParams();
       if (search.trim()) params.append('keyword', search.trim());
-      params.append('limit', 50); // Show full list for management
+      params.append('limit', 50); 
 
       const res = await api.get(`/properties?${params.toString()}`);
       if (res.data.success) {
@@ -75,7 +72,6 @@ const CrmProperties = () => {
     }));
   };
 
-  // Submit New Property (POST /api/properties)
   const handleCreateProperty = async (e) => {
     e.preventDefault();
     setSubmitting(true);
@@ -117,7 +113,6 @@ const CrmProperties = () => {
     }
   };
 
-  // Delete Property (DELETE /api/properties/:id)
   const handleDeleteProperty = async (id, title) => {
     if (!window.confirm(`Are you sure you want to delete "${title}"?`)) return;
 
@@ -133,7 +128,6 @@ const CrmProperties = () => {
 
   return (
     <div className="space-y-8">
-      
       {/* Top Banner */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
@@ -331,7 +325,6 @@ const CrmProperties = () => {
       {showCreateModal && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
           <div className="bg-white w-full max-w-2xl rounded-3xl shadow-2xl border border-slate-200 overflow-hidden my-8 animate-in fade-in duration-200">
-            
             {/* Modal Header */}
             <div className="p-6 bg-slate-900 text-white flex items-center justify-between">
               <div>
@@ -355,8 +348,6 @@ const CrmProperties = () => {
                   <span>{formError}</span>
                 </div>
               )}
-
-              {/* Title */}
               <div>
                 <label className="block text-xs font-bold text-slate-700 uppercase mb-1">
                   Property Title *
@@ -371,8 +362,6 @@ const CrmProperties = () => {
                   className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
                 />
               </div>
-
-              {/* Price & Type */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-bold text-slate-700 uppercase mb-1">
@@ -408,7 +397,6 @@ const CrmProperties = () => {
                 </div>
               </div>
 
-              {/* Address & City */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-bold text-slate-700 uppercase mb-1">
@@ -441,7 +429,6 @@ const CrmProperties = () => {
                 </div>
               </div>
 
-              {/* Beds, Baths, SqFt */}
               <div className="grid grid-cols-3 gap-3">
                 <div>
                   <label className="block text-xs font-bold text-slate-700 uppercase mb-1">
@@ -480,8 +467,6 @@ const CrmProperties = () => {
                   />
                 </div>
               </div>
-
-              {/* Image URL */}
               <div>
                 <label className="block text-xs font-bold text-slate-700 uppercase mb-1">
                   Primary Image URL
@@ -496,7 +481,6 @@ const CrmProperties = () => {
                 />
               </div>
 
-              {/* Description */}
               <div>
                 <label className="block text-xs font-bold text-slate-700 uppercase mb-1">
                   Description *
@@ -511,8 +495,6 @@ const CrmProperties = () => {
                   className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs resize-none"
                 />
               </div>
-
-              {/* Featured Checkbox */}
               <div className="flex items-center gap-2 pt-2">
                 <input
                   type="checkbox"
@@ -527,7 +509,6 @@ const CrmProperties = () => {
                 </label>
               </div>
 
-              {/* Submit Buttons */}
               <div className="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
                 <button
                   type="button"
@@ -544,13 +525,10 @@ const CrmProperties = () => {
                   {submitting ? 'Creating...' : 'Publish Property'}
                 </button>
               </div>
-
             </form>
-
           </div>
         </div>
       )}
-
     </div>
   );
 };

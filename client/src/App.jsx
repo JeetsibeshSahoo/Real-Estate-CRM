@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { checkAuth } from './redux/slices/authSlice';
@@ -15,25 +15,21 @@ import Dashboard from './pages/Dashboard';
 import Leads from './pages/Leads';
 import CrmProperties from './pages/CrmProperties';
 
-// Layout wrapper to conditionally show public Navbar/Footer only on public pages
+
 const AppContent = () => {
   const location = useLocation();
   const isCrmRoute = location.pathname.startsWith('/crm');
 
   return (
     <div className="flex flex-col min-h-screen bg-slate-50">
-      {/* Show Public Navbar only outside CRM */}
       {!isCrmRoute && <Navbar />}
 
       <main className="flex-grow">
         <Routes>
-          {/* Public Website Routes */}
           <Route path="/" element={<Home />} />
           <Route path="/properties" element={<Properties />} />
           <Route path="/properties/:id" element={<PropertyDetails />} />
           <Route path="/login" element={<Login />} />
-
-          {/* Protected CRM Routes (Owns its own dedicated layout) */}
           <Route
             path="/crm"
             element={
@@ -49,8 +45,6 @@ const AppContent = () => {
           </Route>
         </Routes>
       </main>
-
-      {/* Show Public Footer only outside CRM */}
       {!isCrmRoute && <Footer />}
     </div>
   );

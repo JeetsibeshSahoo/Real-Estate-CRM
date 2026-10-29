@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import api from '../../api/axios';
 
-// 1. Async Thunk for Login
+
 export const loginUser = createAsyncThunk(
   'auth/loginUser',
   async ({ email, password }, { rejectWithValue }) => {
@@ -20,7 +20,7 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-// 2. Async Thunk to Verify Token & Fetch Current User on Page Refresh
+
 export const checkAuth = createAsyncThunk(
   'auth/checkAuth',
   async (_, { rejectWithValue }) => {
@@ -38,7 +38,6 @@ export const checkAuth = createAsyncThunk(
   }
 );
 
-// Initial State from LocalStorage
 const storedUser = localStorage.getItem('user');
 const storedToken = localStorage.getItem('token');
 
@@ -47,7 +46,7 @@ const initialState = {
   token: storedToken || null,
   isAuthenticated: !!storedToken,
   loading: false,
-  initialLoading: true, // Used to verify token on app boot
+  initialLoading: true, 
   error: null
 };
 
@@ -69,7 +68,6 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Login cases
       .addCase(loginUser.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -86,8 +84,6 @@ const authSlice = createSlice({
         state.isAuthenticated = false;
         state.error = action.payload;
       })
-
-      // CheckAuth cases
       .addCase(checkAuth.pending, (state) => {
         state.initialLoading = true;
       })

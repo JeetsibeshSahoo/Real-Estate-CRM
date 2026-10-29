@@ -11,10 +11,7 @@ import { protect, authorize } from '../middleware/auth.js';
 
 const router = express.Router();
 
-// Public: Visitors submit enquiry from the property details page
 router.post('/', createLead);
-
-// Protected: CRM agent and admin routes
 router.get('/', protect, authorize('admin', 'agent'), getLeads);
 router.get('/:id', protect, authorize('admin', 'agent'), getLeadById);
 router.patch('/:id/status', protect, authorize('admin', 'agent'), updateLeadStatus);

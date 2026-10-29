@@ -148,7 +148,6 @@ export const updateLeadStatus = async (req, res) => {
     const previousStatus = lead.status;
     lead.status = status;
 
-    // Automatically record status change event in the notes timeline
     lead.notes.push({
       text: noteText || `Status updated from "${previousStatus}" to "${status}"`,
       addedBy: req.user ? req.user.name : 'Admin',
