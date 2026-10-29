@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-// Create a centralized Axios instance configured with backend URL
+// Use environment variable if available, otherwise fallback to localhost
 const api = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
   headers: {
     'Content-Type': 'application/json'
   }
@@ -25,7 +25,6 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response && error.response.status === 401) {
-      // If unauthorized/token expired, clear stale data
       localStorage.removeItem('token');
       localStorage.removeItem('user');
     }
